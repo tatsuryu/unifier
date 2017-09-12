@@ -32,7 +32,7 @@ def get_args():
     levels = [ logging.WARNING, logging.INFO, logging.DEBUG ]
     log.setLevel(levels[ min(len(levels)-1, opts.verbose) ])
 
-    return opts
+    return opts.caminho, opts.destino
 
 def arqhash(arquivo: str) -> str:
     '''Retorna o hash md5 de [arquivo].'''
@@ -84,11 +84,11 @@ def versiona(dest: str, check: str, depth: int = 0) -> str:
         return None
 
 if __name__ == "__main__":
-    opts = get_args()
+    caminho, destino = get_args()
 
     log.debug(f'Iniciando coleta de arquivos.')
-    arqdic = dbfiles(opts.caminho)
+    arqdic = dbfiles(caminho)
     log.debug(f'{len(arqdic)} arquivos encontrados.')
-    cparqs(diciarq=arqdic, destino=opts.destino)
+    cparqs(diciarq=arqdic, destino=destino)
 
 # vim: sw=4 ts=4 et sm cursorline tw=79 fo+=t fileencoding=utf-8
