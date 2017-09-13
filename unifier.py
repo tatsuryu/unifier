@@ -39,11 +39,11 @@ def arqhash(arquivo: str) -> str:
     with open(arquivo, 'rb') as arq:
         return md5(arq.read()).hexdigest()
 
-def dbfiles(caminho: str) -> dict:
+def dbfiles(caminho: str, pesquisa: str = '/**/*') -> dict:
     '''Função que escaneia caminho recursivamente, e separa os arquivos
     por hash, retornando um dicionário em que as chaves são os hashes.'''
     dbdict = {}
-    for filename in glob.iglob(f'{caminho}/**/*', recursive=True):
+    for filename in glob.iglob(f'{caminho}{pesquisa}', recursive=True):
         if not os.path.isfile(filename) or os.path.islink(filename): continue
         hasharq = arqhash(filename)
         try:
